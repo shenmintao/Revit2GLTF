@@ -157,7 +157,7 @@ namespace Revit2Gltf.glTF
             IList<Parameter> parameters = element.GetOrderedParameters();
             foreach (Parameter p in parameters)
             {
-                string GroupName = LabelUtils.GetLabelFor(p.Definition.ParameterGroup);
+                string GroupName = LabelUtils.GetLabelForGroup(p.Definition.GetGroupTypeId());
                 var parameter = new glTFParameter();
                 parameter.name = p.Definition.Name;
                 if (StorageType.String == p.StorageType)

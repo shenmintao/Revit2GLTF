@@ -331,7 +331,7 @@ namespace Revit2Gltf.glTF
         public RenderNodeAction OnInstanceBegin(InstanceNode node)
         {
             _transformStack.Push(CurrentTransform.Multiply(node.GetTransform()));
-            ElementId symId = node.GetSymbolId();
+            ElementId symId = node.GetSymbolGeometryId().SymbolId;
             Element symElem = doc.GetElement(symId);
             _curSymbolId = symElem.UniqueId;
             if (MapSymbolId.ContainsKey(symElem.UniqueId))
@@ -343,7 +343,7 @@ namespace Revit2Gltf.glTF
 
         public void OnInstanceEnd(InstanceNode node)
         {
-            ElementId symId = node.GetSymbolId();
+            ElementId symId = node.GetSymbolGeometryId().SymbolId;
             Element symElem = doc.GetElement(symId);
             if (MapSymbolId.ContainsKey(symElem.UniqueId))
             {
@@ -361,7 +361,7 @@ namespace Revit2Gltf.glTF
             }
             else
             {
-                wiriteElementId(node.GetSymbolId(), true);
+                wiriteElementId(node.GetSymbolGeometryId().SymbolId, true);
             }
             _transformStack.Pop();
         }
